@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHESS</title>
+
+    <link rel="stylesheet"
+      href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+      integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
+      crossorigin="anonymous">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <nav >
+        <h1 style="text-align: center; font-size:40px;"><i class="fa-solid fa-chess-rook"></i> Chess AI <i class="fa-solid fa-chess-knight"></i></h1>
+    </nav>
+    
+    <div class="board-div">
+      <div class="main">
+        <div>
+          <div class="config">
+            <!-- diffuculty level setter -->
+            <label for="difficulty" style="font-size: 15px; margin-right: 10px;">Difficulty</label>
+            <select name="difficulty" style="font-size: 15px; padding: 5px; border-radius: 5px;" id="difficulty">
+              <option value="1" style="background-color:greenyellow;">Easy</option>
+              <option value="2" style="background-color: yellow;">Medium</option>
+              <option value="3" style="background-color:red;">Hard</option>
+            </select>
+            <button onclick="reset()"><i class="fa-solid fa-power-off"></i> Reset</button>
+            <button onclick="flip()"><i class="fa-solid fa-repeat"></i> Flip</button>
+            <button onclick="resign()"><i class="fa-regular fa-flag"></i> Resign</button>
+            <button onclick="play()"><i class="fa-solid fa-play"></i> Start</button>
+          </div>
+          <div id="myBoard"></div>
+        </div>
+        <div id="history">
+          <h1 style="border-bottom: 3px solid #555;">History</h1>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+      crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+      integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
+      crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
