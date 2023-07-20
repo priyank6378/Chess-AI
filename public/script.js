@@ -1,5 +1,5 @@
 document.getElementById("myBoard").style.width = min(window.innerWidth, window.innerHeight)*0.75 + "px";
-document.getElementById("history").style.height = document.getElementById("myBoard").style.width;
+document.getElementById("history").style.height = document.getElementById("myBoard").style.width.split("px")[0] + "px";
 
 var board = null
 var game = new Chess()
@@ -42,10 +42,11 @@ function onDrop (source, target) {
     promotion: 'q' // NOTE: always promote to a queen for example simplicity
   })
 
-	document.getElementById("history").innerHTML += "<h3 ><i class=\"fa-solid fa-user\"></i> Player: " + move.from + " -> " + move.to + "</h3>";
-
   // illegal move
   if (move === null) return 'snapback'
+  
+  document.getElementById("history").innerHTML += "<h3 ><i class=\"fa-solid fa-user\"></i> Player: " + move.from + " -> " + move.to + "</h3>";
+
 }
 
 function onMouseoverSquare (square, piece) {
@@ -76,8 +77,8 @@ function onSnapEnd () {
 }
 
 var config = {
-    draggable: true,
     position: 'start',
+    draggable: true,
     onDragStart: onDragStart,
     onDrop: onDrop,
     onMouseoutSquare: onMouseoutSquare,
@@ -95,6 +96,8 @@ function sleep(ms){
 var ai = 'b';
 var human = 'w';
 var MAX_DEPTH = 2; // max depth of the tree
+
+var force_stop = false; // if true, stop the game.
 
 // adapted from sunfish chess engine
 var weights = { 'p': 100, 'n': 280, 'b': 320, 'r': 479, 'q': 929, 'k': 60000, 'k_e': 60000 };
@@ -300,19 +303,29 @@ function alphaBetaPruning(fen){
 }
 
 async function play(){
+  reset();
+  force_stop = false;
+
+  document.getElementById("reset").removeAttribute("disabled");
+  document.getElementById("resign").removeAttribute("disabled");
+  document.getElementById("start").setAttribute("disabled", "disabled");
+  document.getElementById("flip").setAttribute("disabled", "disabled");
+  document.getElementById("difficulty").setAttribute("disabled", "disabled");
+
 	while (game.in_checkmate() == false && game.in_stalemate() == false && game.moves().length > 0){
 		while (game.turn() == human){
 			console.log("human turn");
 			await sleep(1000);	
 		}
 		await sleep(500);
+    if (force_stop) return ;
 		console.log("ai turn");
 		move = alphaBetaPruning(game.fen());
 		// console.log(move);
 		board.move(move.from + '-' + move.to);
 		game.move(move);
 		document.getElementById("history").innerHTML += "<h3 ><i class=\"fa-solid fa-computer\"></i> AI: " + move.from + " -> " + move.to + "</h3>";
-
+    if (force_stop) return ;
 		// await sleep(5000);
 	}
 	if (game.in_checkmate()){
@@ -327,6 +340,12 @@ async function play(){
 }
 
 function reset(){
+  force_stop = true;
+  document.getElementById("reset").setAttribute("disabled", "disabled");
+  document.getElementById("resign").setAttribute("disabled", "disabled");
+  document.getElementById("start").removeAttribute("disabled");
+  document.getElementById("flip").removeAttribute("disabled");
+  document.getElementById("difficulty").removeAttribute("disabled");
 	board.position('start');
 	game.reset();
 	MAX_DEPTH = parseInt(document.getElementById("difficulty").value);
@@ -348,6 +367,13 @@ function flip(){
 }
 
 function resign(){
+  force_stop = true;
+  document.getElementById("reset").setAttribute("disabled", "disabled");
+  document.getElementById("resign").setAttribute("disabled", "disabled");
+  document.getElementById("start").removeAttribute("disabled");
+  document.getElementById("flip").removeAttribute("disabled");
+  document.getElementById("difficulty").removeAttribute("disabled");
+
 	swal("You Resigned");
 	reset();
 }

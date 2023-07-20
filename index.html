@@ -25,7 +25,7 @@
     
     <div class="board-div">
       <div class="main">
-        <div>
+        <div id="inner-main">
           <div class="config">
             <!-- diffuculty level setter -->
             <label for="difficulty" style="font-size: 15px; margin-right: 10px;">Difficulty</label>
@@ -34,10 +34,10 @@
               <option value="2" style="background-color: yellow;">Medium</option>
               <option value="3" style="background-color:red;">Hard</option>
             </select>
-            <button onclick="reset()"><i class="fa-solid fa-power-off"></i> Reset</button>
-            <button onclick="flip()"><i class="fa-solid fa-repeat"></i> Flip</button>
-            <button onclick="resign()"><i class="fa-regular fa-flag"></i> Resign</button>
-            <button onclick="play()"><i class="fa-solid fa-play"></i> Start</button>
+            <button onclick="reset()" id="reset" disabled><i class="fa-solid fa-power-off"></i> Reset</button>
+            <button onclick="flip()"  id="flip"><i class="fa-solid fa-repeat"></i> Flip</button>
+            <button onclick="resign()"  id="resign" disabled><i class="fa-regular fa-flag"></i> Resign</button>
+            <button onclick="play()"  id="start"><i class="fa-solid fa-play"></i> Start</button>
           </div>
           <div id="myBoard"></div>
         </div>
