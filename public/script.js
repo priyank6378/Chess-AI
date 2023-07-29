@@ -316,6 +316,7 @@ async function play(){
 		while (game.turn() == human){
 			console.log("human turn");
 			await sleep(1000);	
+      if (force_stop) return ;
 		}
 		await sleep(500);
     if (force_stop) return ;
