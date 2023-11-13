@@ -330,7 +330,7 @@ async function play(){
 		// await sleep(5000);
 	}
 	if (game.in_checkmate()){
-		swal("Winner : " + game.turn());
+		swal("Winner : " + (chess.turn() === 'w' ? 'Black' : 'White'));
 	}
 	else if (game.in_stalemate()){
 		swal("Stalemate");
